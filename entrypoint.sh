@@ -11,6 +11,13 @@ enable_password = "${RSPAMD_PASSWORD}";
 bind_socket = "*v4:11334";
 EOF
 
+
+if [ "$RSPAMD_MILTER_EXTENDED_SPAM_HEADERS" != "" ]; then
+cat << EOF >> /etc/rspamd/local.d/milter_headers.conf
+extended_spam_headers = $RSPAMD_MILTER_EXTENDED_SPAM_HEADERS;
+EOF
+fi
+
 cat << EOF > /etc/rspamd/local.d/logging.inc
 type = console
 level = debug
